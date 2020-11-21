@@ -1,36 +1,47 @@
-def is_prime(a):
-    d = 2
-    while d**2 <= a and a % d != 0:
-        d += 1
-    return d**2 > a
+# def sqrt(a):
+#     """
+#     square roots computation using binary search
+#     :param a:
+#     :return: square root of the param
+#     """
+#     left = 0
+#     right = max(1, a)
+#     EPS = 10**(-10)
+#     while left < right - EPS:
+#         mid = (left + right) / 2
+#         if mid**2 > a:
+#             right = mid
+#         else:
+#             left = mid
+#     return left
 
 
-def sqrt(a):
+def primes(a):
     """
-    square roots computation using binary search
+    the sieve of Eratosthenes
     :param a:
-    :return: square root of the param
+    :return: all prime numbers on the interval [1, a]
     """
-    left = 0
-    right = max(1, a)
-    EPS = 10**(-6)
-    while left < right - EPS:
-        mid = (left + right) / 2
-        if mid**2 > a:
-            right = mid
-        else:
-            left = mid
-    return round(left)
+    primes = [True] * (a + 1)
+    p = 2
+    while p * p <= a:
+        if primes[p]:
+            for j in range(p * p, a + 1, p):
+                primes[j] = False
+        p += 1
+    return primes
 
 
-def is_t_simple(a):
-    return 4 <= a == sqrt(a)**2 and is_prime(sqrt(a))
-
-
+primes = primes(10**6)
 n = int(input())
 lst = list(map(int, input().split()))
-for i in range(n):
-    if is_t_simple(lst[i]):
-        print('YES')
+for i in lst:
+    if i == 1:
+        print('NO')
+    elif i**0.5 == int(i**0.5):
+        if primes[(int(i**0.5))]:
+            print('YES')
+        else:
+            print('NO')
     else:
         print('NO')
