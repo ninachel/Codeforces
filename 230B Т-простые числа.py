@@ -20,16 +20,16 @@ def primes(a):
     """
     the sieve of Eratosthenes
     :param a:
-    :return: all prime numbers on the interval [1, a]
+    :return: all prime numbers on the interval [2, a]
     """
-    primes = [True] * (a + 1)
+    primes_boolean = [True] * (a + 1)
     p = 2
     while p * p <= a:
         if primes[p]:
             for j in range(p * p, a + 1, p):
                 primes[j] = False
         p += 1
-    return primes
+    return primes_boolean
 
 
 primes = primes(10**6)
